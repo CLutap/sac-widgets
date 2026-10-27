@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SAC HTML Viewer Demo</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 14px;
+      color: #32363a;
+      background: #ffffff;
+      padding: 16px;
+    }
+    h2 {
+      color: #0070F2;
+      font-size: 16px;
+      margin-bottom: 4px;
+    }
+    .subtitle {
+      color: #6a6d70;
+      font-size: 12px;
+      margin-bottom: 16px;
+    }
+    #chart {
+      width: 100%;
+      height: calc(100vh - 80px);
+      min-height: 280px;
+    }
+  </style>
+</head>
+<body>
+  <h2>Revenue by Product — 2024</h2>
+  <p class="subtitle">Demo chart hosted on GitHub Pages · Embedded via SAC Web Page widget</p>
+  <div id="chart"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
+  <script>
+    var chart = echarts.init(document.getElementById('chart'));
+
+    chart.setOption({
+      tooltip: { trigger: 'axis' },
+      legend: { data: ['2023', '2024'], top: 8 },
+      grid: { left: 60, right: 20, bottom: 40, top: 48 },
+      xAxis: {
+        type: 'category',
+        data: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+               'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+        axisLine:  { lineStyle: { color: '#d9d9d9' } },
+        axisLabel: { color: '#6a6d70' }
+      },
+      yAxis: {
+        type: 'value',
+        axisLabel: {
+          color: '#6a6d70',
+          formatter: function(v) { return '$' + (v / 1000) + 'k'; }
+        },
+        splitLine: { lineStyle: { color: '#f0f0f0' } }
+      },
+      series: [
+        {
+          name: '2023',
+          type: 'bar',
+          data: [82, 93, 101, 88, 110, 120, 115, 130, 125, 140, 138, 160],
+          itemStyle: { color: '#89D1FF' },
+          barGap: '10%'
+        },
+        {
+          name: '2024',
+          type: 'bar',
+          data: [95, 108, 117, 102, 128, 142, 135, 150, 148, 162, 158, 185],
+          itemStyle: { color: '#0070F2' }
+        }
+      ]
+    });
+
+    window.addEventListener('resize', function () { chart.resize(); });
+  </script>
+</body>
+</html>
